@@ -6,7 +6,7 @@ const baseUrl = "https://google-search3.p.rapidapi.com/api/v1";
 export const ResultContextProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("Javascript Mastery");
+  const [searchTerm, setSearchTerm] = useState("");
 
   // /videos, /search, /image
   const getResults = async (type) => {
@@ -17,7 +17,7 @@ export const ResultContextProvider = ({ children }) => {
       headers: {
         "X-User-Agent": "desktop",
         "X-Proxy-Location": "US",
-        "X-RapidAPI-Key": "f5c14abe2cmshb1d2d4038bc3c9ep1676fajsn77fd71c56f9c",
+        "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
         "X-RapidAPI-Host": "google-search3.p.rapidapi.com",
       },
     });
@@ -26,7 +26,7 @@ export const ResultContextProvider = ({ children }) => {
 
     if (type.includes("/news")) {
       setResults(data.entries);
-    } else if (type.includes("/images")) {
+    } else if (type.includes("/image")) {
       setResults(data.image_results);
     } else {
       setResults(data.results);
